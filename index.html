@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Repair Management</title>
+  <link href="./css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="./css/app.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+  <div class="container">
+    <div class="rowi row-offcanvas row-offcanvas-right">
+      <div class="col-xs-12 col-sm-9">
+        <div class="jumbotron">
+          <p>项目四：产品返修记录</p>
+        </div>
+
+        <div class="main" id="main">
+          <div id="pageList"></div>
+          <div id="pageEdit"></div>
+          <form id="pageNew">
+            <legend>机器信息</legend>
+            <div class="form-group">
+              <label for="">机器型号</label>
+              <input id="m_num" class="form-control" type="text" />
+            </div>
+            <div class="form-group">
+              <label for="">数量</label>
+              <input id="m_count" class="form-control" type="number" />
+            </div>
+            <div class="form-group">
+              <label for="">故障问题</label>
+              <textarea id="m_problem" class="form-control" type="" ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="">处理方案</label>
+              <textarea id="m_solution" class="form-control" type="" ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="">维修人员</label>
+              <input id="m_repairman" class="form-control" type="text" />
+            </div> 
+            <legend>客户信息</legend>
+            <div class="form-group">
+              <label for="">客户地址</label>
+              <textarea id="u_address" class="form-control" type="" ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="">联系方式</label>
+              <input id="u_mobile" class="form-control" type="text" />
+            </div>
+            <div class="form-group">
+              <label for="">销售人员</label>
+              <input id="u_seller" class="form-control" type="text" />
+            </div>
+
+            <div class="actions">
+              <button id="new-item" class="btn btn-primary">提交</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="sidebar" class="col-xs-6 col-sm-3 sidebar-offcanvas">
+        <div class="list-group">
+          <a id="add-item" href="#" class="list-group-item active">添加记录</a>
+          <a id="edit-item" href="#" class="list-group-item">编辑记录</a>
+          <a id="del-item" href="#" class="list-group-item">删除选中记录</a>
+        </div>
+      </div>
+    </div>
+    <footer></footer>
+  </div>
+  <!-- Put the js files at the end which makes pages load faster -->
+  <script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
+  <script src="./js/bootstrap.min.js" type="text/javascript" ></script>
+  <script src="./js/app.js" type="text/javascript"></script>
+</body>
+</html>
