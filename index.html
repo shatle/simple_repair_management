@@ -11,13 +11,68 @@
   <div class="container">
     <div class="rowi row-offcanvas row-offcanvas-right">
       <div class="col-xs-12 col-sm-9">
-        <div class="jumbotron">
-          <p>项目四：产品返修记录</p>
-        </div>
+
+        <!-- <div class="jumbotron"> -->
+        <!--   <p>项目四：产品返修记录</p> -->
+        <!-- </div> -->
 
         <div class="main" id="main">
-          <div id="pageList"></div>
-          <div id="pageEdit"></div>
+          <table id="pageList" class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>机器型号</th>
+                <th>维修人员</th>
+                <th>客户电话</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+
+          <!-- Edit Form -->
+          <form id="pageEdit">
+            <legend>机器信息</legend>
+            <div class="form-group">
+              <label for="">机器型号</label>
+              <input id="m_num_edit" class="form-control" type="text" />
+            </div>
+            <div class="form-group">
+              <label for="">数量</label>
+              <input id="m_count_edit" class="form-control" type="number" />
+            </div>
+            <div class="form-group">
+              <label for="">故障问题</label>
+              <textarea id="m_problem_edit" class="form-control" type="" ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="">处理方案</label>
+              <textarea id="m_solution_edit" class="form-control" type="" ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="">维修人员</label>
+              <input id="m_repairman_edit" class="form-control" type="text" />
+            </div> 
+            <legend>客户信息</legend>
+            <div class="form-group">
+              <label for="">客户地址</label>
+              <textarea id="u_address_edit" class="form-control" type="" ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="">联系方式</label>
+              <input id="u_mobile_edit" class="form-control" type="text" />
+            </div>
+            <div class="form-group">
+              <label for="">销售人员</label>
+              <input id="u_seller_edit" class="form-control" type="text" />
+            </div>
+            <div class="actions">
+              <button id="edit-item" class="btn btn-primary action" action="update">提交</button>
+            </div>
+          </form>
+
+          <!-- New Form -->
           <form id="pageNew">
             <legend>机器信息</legend>
             <div class="form-group">
@@ -55,16 +110,18 @@
             </div>
 
             <div class="actions">
-              <button id="new-item" class="btn btn-primary">提交</button>
+              <button id="new-item" class="btn btn-primary action" action="create">提交</button>
             </div>
           </form>
+
+
         </div>
       </div>
       <div id="sidebar" class="col-xs-6 col-sm-3 sidebar-offcanvas">
         <div class="list-group">
-          <a id="add-item" href="#pageList" class="redirect list-group-item active">记录列表</a>
+          <a id="add-item" href="#pageList" class="action list-group-item active" action="index">记录列表</a>
           <a id="add-item" href="#pageNew" class="redirect list-group-item">添加记录</a>
-          <a id="edit-item" href="#pageEdit" class="redirect list-group-item">编辑记录</a>
+          <!-- <a id="edit&#45;item" href="#pageEdit" class="redirect list&#45;group&#45;item">编辑记录</a> -->
         </div>
       </div>
     </div>
