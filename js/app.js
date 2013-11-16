@@ -8,6 +8,14 @@ $(document).ready(function() {
   // App 
   var App = {}
 
+  App.init = function(){
+    var store = new App.Store(),
+        view  = new App.View(),
+        controller = new App.Controller();
+
+    controller.startWith(store, view);
+  }
+
   // Model
   App.Mmachine = {
     num: 0,
@@ -54,5 +62,74 @@ $(document).ready(function() {
     }
   }
 
+  App.View = function(){
+    var page_hash = {
+                      index: '#pageList',
+                      edit: '#pageEdit',
+                      news: '#pageNew'
+                    },
+        page_ids = ['#pageList', '#pageEdit', '#pageNew'],
+        that = this;
+
+    this.pageHash = function(){
+      return page_hash;
+    }
+
+    this.redirectPage = function(page_id){
+      if(!page_id){return false;}
+      console.log('redirectPage: '+ page_id);
+      $(page_ids.toString()).addClass('hide');
+      $(page_id).removeClass('hide');
+    }
+
+    this.init = function(){
+      that.redirectPage('index');
+    }
+  }
+
+  App.Controller = function(){
+    var view = undefined,
+        store = undefined,
+        that = this,
+        actions = ['index', 'create', 'update', 'destroy'];
+
+    this.startWith = function(s, v){
+      view = v;
+      store = s;
+
+      that.__bindRedirect();
+      that.__bindOperations();
+    }
+
+    this.__bindRedirect = function(){
+      $('.redirect').on('click',function(evt){
+        evt.preventDefault();
+        view.redirectPage($(evt.target).attr('href'));
+      });
+    }
+
+    this.__bindOperations = function(){
+      $('.action').on('click', function(evt){
+        var act = $(evt.target).attr('action');
+        if (actions.indexOf(act) == -1){return false;}
+
+        switch (act){
+          case 'index':
+            view.redirectPage(view.pageHash.index);
+            break;
+          case 'create':
+            view.redirectPage(view.pageHash.index);
+            break;
+          case 'update':
+            break;
+          case 'destroy':
+            view.redirectPage(view.pageHash.index);
+            break;
+        }
+      });
+    }
+  }
+
+  App.init();
   window.App = App;
 });
