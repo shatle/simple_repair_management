@@ -42,7 +42,7 @@ $(document).ready(function() {
 
   // Store data which uses LocalStorage
   App.Store = function(){
-    var content = {};
+    var contents = {};
     
     this.addItem = function(obj_m, obj_u){
       var _machine = $.extend(App.Mmachine, obj_m),
@@ -54,9 +54,9 @@ $(document).ready(function() {
       //console.log(_item);
       //console.log('addItem......');
 
-      content[_id] = _item;
+      contents[_id] = _item;
 
-      window.localStorage.setItem('repairManagement', JSON.stringify(content));
+      window.localStorage.setItem('repairManagement', JSON.stringify(contents));
     }
 
     this.delItem = function(item_id){
@@ -64,12 +64,12 @@ $(document).ready(function() {
       //console.log(item_id);
       //console.log('delItem......');
 
-      delete content[item_id]
-      window.localStorage.setItem('repairManagement', JSON.stringify(content));
+      delete contents[item_id]
+      window.localStorage.setItem('repairManagement', JSON.stringify(contents));
     }
 
     this.updateItem = function(item_id, obj_m, obj_u){
-      var _item = content[item_id],
+      var _item = contents[item_id],
           _machine = $.extend(_item.machine, obj_m),
           _user = $.extend(_item.user, obj_u),
           _updated_at = (new Date()).valueOf();
@@ -84,12 +84,12 @@ $(document).ready(function() {
       //console.log(_item);
       //console.log('updateItem......');
 
-      content[item_id] = _item;
-      window.localStorage.setItem('repairManagement', JSON.stringify(content));
+      contents[item_id] = _item;
+      window.localStorage.setItem('repairManagement', JSON.stringify(contents));
     }
 
     this.findItem = function(item_id){
-      return content[item_id];
+      return contents[item_id];
     }
 
     this.all = function(){
@@ -98,11 +98,11 @@ $(document).ready(function() {
     }
 
     this.__content = function(){
-      return content;
+      return contents;
     }
 
     this.__getHistory = function(){
-      content = $.parseJSON(window.localStorage.getItem('repairManagement'));
+      contents = $.parseJSON(window.localStorage.getItem('repairManagement')) || {};
     }
   }
 
