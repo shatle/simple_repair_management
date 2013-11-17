@@ -69,7 +69,7 @@ $(document).ready(function() {
     }
 
     this.updateItem = function(item_id, obj_m, obj_u){
-      var _item = content[record_id],
+      var _item = content[item_id],
           _machine = $.extend(_item.machine, obj_m),
           _user = $.extend(_item.user, obj_u),
           _updated_at = (new Date()).valueOf();
@@ -128,16 +128,22 @@ $(document).ready(function() {
       return edit_item_id;
     }
 
-    this.fillEditPage = function(item){
-      $('m_num_edit').val(item.machine.num);
-      $('m_count_edit').val(item.machine.count);
-      $('m_problem_edit').val(item.machine.problem);
-      $('m_solution_edit').val(item.machine.num);
-      $('m_repairman_edit').val(item.machine.repairman);
+    this.fillEditPage = function(store, item_id){
+      if(!store || !item_id){return false;}
+      item = store.findItem(item_id);
+      if(!item){return false;}
+      console.log('...fillEditPage...') 
+      edit_item_id = item_id;
 
-      $('u_address_edit').val(item.machine.address);
-      $('u_mobile_edit').val(item.machine.mobile);
-      $('u_seller_edit').val(item.machine.seller);
+      $('#m_num_edit').val(item.machine.num);
+      $('#m_count_edit').val(item.machine.count);
+      $('#m_problem_edit').val(item.machine.problem);
+      $('#m_solution_edit').val(item.machine.num);
+      $('#m_repairman_edit').val(item.machine.repairman);
+
+      $('#u_address_edit').val(item.user.address);
+      $('#u_mobile_edit').val(item.user.mobile);
+      $('#u_seller_edit').val(item.user.seller);
     }
 
     this.redirectPage = function(page_id){
@@ -245,7 +251,7 @@ $(document).ready(function() {
     }
 
     this.__bindOperations = function(){
-      $('.action').on('click', function(evt){
+      $('#main').on('click','.action', function(evt){
         var act = $(evt.target).attr('action');
         if (actions.indexOf(act) == -1){return false;}
         console.log('GetIn action: '+act)
@@ -255,7 +261,7 @@ $(document).ready(function() {
             view.redirectPage(view.pageHash().index);
             break;
           case 'edit':
-            view.fillEditPage($(evt.target).attr('target'));
+            view.fillEditPage(store, $(evt.target).attr('target'));
             view.redirectPage(view.pageHash().edit);
             break;
           case 'create':
