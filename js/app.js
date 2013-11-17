@@ -50,9 +50,9 @@ $(document).ready(function() {
           _item = { machine: _machine, user: _user},
           _id = (new Date()).valueOf();
 
-      console.log('addItem......');
-      console.log(_item);
-      console.log('addItem......');
+      //console.log('addItem......');
+      //console.log(_item);
+      //console.log('addItem......');
 
       content[_id] = _item;
 
@@ -60,9 +60,9 @@ $(document).ready(function() {
     }
 
     this.delItem = function(item_id){
-      console.log('delItem......');
-      console.log(item_id);
-      console.log('delItem......');
+      //console.log('delItem......');
+      //console.log(item_id);
+      //console.log('delItem......');
 
       delete content[item_id]
       window.localStorage.setItem('repairManagement', JSON.stringify(content));
@@ -80,9 +80,9 @@ $(document).ready(function() {
         updated_at: _updated_at
       }
 
-      console.log('updateItem......');
-      console.log(_item);
-      console.log('updateItem......');
+      //console.log('updateItem......');
+      //console.log(_item);
+      //console.log('updateItem......');
 
       content[item_id] = _item;
       window.localStorage.setItem('repairManagement', JSON.stringify(content));
@@ -132,7 +132,7 @@ $(document).ready(function() {
       if(!store || !item_id){return false;}
       item = store.findItem(item_id);
       if(!item){return false;}
-      console.log('...fillEditPage...') 
+      //console.log('...fillEditPage...') 
       edit_item_id = item_id;
 
       $('#m_num_edit').val(item.machine.num);
@@ -147,10 +147,12 @@ $(document).ready(function() {
     }
 
     this.redirectPage = function(page_id){
-      console.log('redirectPage: '+ page_id);
+      //console.log('redirectPage: '+ page_id);
       if(!page_id){return false;}
       $(page_ids.toString()).addClass('hide');
       $(page_id).removeClass('hide');
+      $('#sidebar .list-group a').removeClass('active');
+      $('#sidebar .list-group a[href='+page_id+']').addClass('active');
     }
 
     this.newMachine = function(){
@@ -192,7 +194,7 @@ $(document).ready(function() {
     }
 
     this.refreshIndex = function(store){
-      console.log('..........refreshIndex......');
+      //console.log('..........refreshIndex......');
       var i = 1, machine, user,
           data = store.__content();
 
@@ -200,11 +202,11 @@ $(document).ready(function() {
       
 
       for(var item in data){
-        console.log(item)
+        //console.log(item)
         machine = data[item].machine,
         user = data[item].user;
         var tmp = that.__indexLineTemplate(i, item, machine.num, machine.repairman, user.seller);
-        console.log('for: '+tmp);
+        //console.log('for: '+tmp);
         $('table tbody').append(tmp);
         i++; 
       }
@@ -254,7 +256,7 @@ $(document).ready(function() {
       $('#main').on('click','.action', function(evt){
         var act = $(evt.target).attr('action');
         if (actions.indexOf(act) == -1){return false;}
-        console.log('GetIn action: '+act)
+        //console.log('GetIn action: '+act)
 
         switch (act){
           case 'index':
@@ -279,6 +281,8 @@ $(document).ready(function() {
             view.refreshIndex(store);
             break;
           case 'destroy':
+            store.delItem($(evt.target).attr('target'))
+            view.refreshIndex(store);
             view.redirectPage(view.pageHash().index);
             break;
         }
