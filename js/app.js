@@ -5,6 +5,67 @@ $(document).ready(function() {
     $('.row-offcanvas').toggleClass('active');
   });
 
+  function exportTableToCSV($table, filename) {
+
+    var $rows = $table.find('tr:has(td), tr:has(th)'),
+
+      // Temporary delimiter characters unlikely to be typed by keyboard
+      // This is to avoid accidentally splitting the actual contents
+      tmpColDelim = String.fromCharCode(11), // vertical tab character
+      tmpRowDelim = String.fromCharCode(0), // null character
+
+      // actual delimiter characters for CSV format
+      colDelim = '","',
+      rowDelim = '"\r\n"';
+
+      // Grab text from table into CSV formatted string
+    var csv = '"' + $rows.map(function (i, row) {
+      var $row = $(row),
+        $cols = $row.find('td, th');
+
+        return $cols.map(function (j, col) {
+          var $col = $(col),
+              text = $col.text();
+
+          return text.replace('"', '""'); // escape double quotes
+
+        }).get().join(tmpColDelim);
+
+    }).get().join(tmpRowDelim)
+      .split(tmpRowDelim).join(rowDelim)
+      .split(tmpColDelim).join(colDelim) + '"';
+
+    // Data URI
+    var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+
+    $(this)
+      .attr({
+      'download': filename+'.csv',
+          'href': csvData,
+          'target': '_blank'
+    });
+  }
+
+  $("#export_excel").click(function(e) {
+
+    //getting values of current time for generating the file name
+    var dt = new Date();
+    var day = dt.getDate();
+    var month = dt.getMonth() + 1;
+    var year = dt.getFullYear();
+    var hour = dt.getHours();
+    var mins = dt.getMinutes();
+    var postfix = day + "." + month + "." + year + "_" + hour + "." + mins;
+    //creating a temporary HTML link element (they support setting file names)
+    // var a = document.createElement('a');
+    exportTableToCSV.apply(this, [$('#pageList'), 'exported_table_' + postfix]);
+    
+    //triggering the function
+    // a.click();
+    //just in case, prevent default behaviour
+    // e.preventDefault();
+  });
+
   // App 
   var App = {}
 
