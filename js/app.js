@@ -266,7 +266,7 @@ $(document).ready(function() {
         //console.log(item)
         machine = data[item].machine,
         user = data[item].user;
-        var tmp = that.__indexLineTemplate(i, item, machine.num, machine.repairman, user.seller);
+        var tmp = that.__indexLineTemplate(i, item, machine.num, machine.repairman, user.mobile);
         //console.log('for: '+tmp);
         $('table tbody').append(tmp);
         i++; 
@@ -274,11 +274,11 @@ $(document).ready(function() {
 
     }
 
-    this.__indexLineTemplate = function(tr_index,item_id, m_num, m_repairman, u_seller){
+    this.__indexLineTemplate = function(tr_index,item_id, m_num, m_repairman, u_mobile){
       return  '<tr><td>'+tr_index+
                 '</td><td>'+m_num+
                 '</td><td>'+m_repairman+
-                '</td><td>'+u_seller+
+                '</td><td>'+u_mobile+
                 '</td><td>'+
                   '<div class="btn-group">'+
                     '<button class="btn btn-default action" action="edit" target="'+item_id+'">编辑</button>'+
